@@ -4,8 +4,10 @@ import {
   disableMacMode,
   enableMacMode,
   removeCmdQ,
+  removeScreenshots,
   setupCedilha,
   setupCmdQ,
+  setupScreenshots,
 } from "./systemInterop.ts";
 
 // In dev mode (--hmr), the working directory is the project root, so "src" exists.
@@ -41,6 +43,12 @@ const server = Deno.serve({ port: 0, hostname: "127.0.0.1" }, async (req) => {
           break;
         case "removeCmdQ":
           message = await removeCmdQ();
+          break;
+        case "setupScreenshots":
+          message = await setupScreenshots();
+          break;
+        case "removeScreenshots":
+          message = await removeScreenshots();
           break;
         default:
           return new Response(

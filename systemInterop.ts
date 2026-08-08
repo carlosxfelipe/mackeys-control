@@ -203,3 +203,96 @@ export async function removeCmdQ(): Promise<string> {
     applied.join(", ")
   }`;
 }
+
+const SCREENSHOT_CONFIG = [
+  {
+    schema: "org.gnome.shell.keybindings",
+    key: "screenshot",
+    add: ["<Super><Shift>3", "<Control><Shift>3"],
+  },
+  {
+    schema: "org.gnome.shell.keybindings",
+    key: "show-screenshot-ui",
+    add: [
+      "<Super><Shift>4",
+      "<Control><Shift>4",
+      "<Super><Shift>5",
+      "<Control><Shift>5",
+    ],
+  },
+  {
+    schema: "org.cinnamon.desktop.keybindings.media-keys",
+    key: "screenshot",
+    add: ["<Super><Shift>3", "<Control><Shift>3"],
+  },
+  {
+    schema: "org.cinnamon.desktop.keybindings.media-keys",
+    key: "area-screenshot",
+    add: [
+      "<Super><Shift>4",
+      "<Control><Shift>4",
+      "<Super><Shift>5",
+      "<Control><Shift>5",
+    ],
+  },
+];
+
+export async function setupScreenshots(): Promise<string> {
+  const applied: string[] = [];
+  for (const conf of SCREENSHOT_CONFIG) {
+    if (await schemaAvailable(conf.schema)) {
+      const { stdout } = await runCommand(
+        `gsettings get ${conf.schema} ${conf.key}`,
+      );
+      let currentStr = stdout.trim();
+      if (currentStr.startsWith("@as ")) currentStr = currentStr.substring(4);
+      let current: string[] = [];
+      try {
+        current = JSON.parse(currentStr.replace(/'/g, '"'));
+      } catch {
+        current = [];
+      }
+      if (!Array.isArray(current)) current = [current];
+
+      const newBinds = Array.from(new Set([...current, ...conf.add]));
+      const strBinds = JSON.stringify(newBinds).replace(/"/g, "'");
+      await runCommand(
+        `gsettings set ${conf.schema} ${conf.key} "${strBinds}"`,
+      );
+      if (!applied.includes(conf.schema)) applied.push(conf.schema);
+    }
+  }
+  return applied.length > 0
+    ? "Atalhos de captura de tela (Cmd+Shift+3, 4, 5) ativados!"
+    : "Não foi possível configurar os atalhos neste ambiente.";
+}
+
+export async function removeScreenshots(): Promise<string> {
+  const applied: string[] = [];
+  for (const conf of SCREENSHOT_CONFIG) {
+    if (await schemaAvailable(conf.schema)) {
+      const { stdout } = await runCommand(
+        `gsettings get ${conf.schema} ${conf.key}`,
+      );
+      let currentStr = stdout.trim();
+      if (currentStr.startsWith("@as ")) currentStr = currentStr.substring(4);
+      let current: string[] = [];
+      try {
+        current = JSON.parse(currentStr.replace(/'/g, '"'));
+      } catch {
+        current = [];
+      }
+      if (!Array.isArray(current)) current = [current];
+
+      const newBinds = current.filter((b: string) => !conf.add.includes(b));
+      const strBinds = JSON.stringify(newBinds).replace(/"/g, "'");
+      await runCommand(
+        `gsettings set ${conf.schema} ${conf.key} "${strBinds}"`,
+      );
+      if (!applied.includes(conf.schema)) applied.push(conf.schema);
+    }
+  }
+  return applied.length > 0
+    ? "Atalhos de captura removidos!"
+    : "Nenhum atalho precisava ser removido.";
+}
