@@ -1,6 +1,10 @@
 # MacKeys Control - Deno Desktop
 
-A native desktop application built with Deno Desktop and Webview.
+MacKeys Control is a utility designed to seamlessly replicate the macOS keyboard
+experience on Linux. It was created out of the need to use a Logitech K380s
+keyboard on both operating systems while maintaining the exact same muscle
+memory, shortcuts (like swapping Ctrl/Command or using Cmd+Q), and layout
+behaviors across both macOS and Linux environments.
 
 ## Requirements
 
