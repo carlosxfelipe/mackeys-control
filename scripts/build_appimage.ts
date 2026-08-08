@@ -78,11 +78,27 @@ async function main() {
 
   // 3. Build AppImage
   console.log("🚀 Building AppImage...");
+
+  let version = "1.0.0";
+  try {
+    const denoJsonText = await Deno.readTextFile("deno.json");
+    const denoJson = JSON.parse(denoJsonText);
+    if (denoJson.version) {
+      version = denoJson.version;
+    }
+  } catch (_err) {
+    console.warn(
+      "⚠️ Could not read version from deno.json, defaulting to 1.0.0",
+    );
+  }
+
+  const appImageName = `MacKeysControl-v${version}-x86_64.AppImage`;
+
   const command = new Deno.Command(`./${APPIMAGE_TOOL}`, {
     args: [
       "--appimage-extract-and-run",
       APP_DIR,
-      "MacKeysControl-x86_64.AppImage",
+      appImageName,
     ],
     stdout: "inherit",
     stderr: "inherit",
@@ -92,7 +108,7 @@ async function main() {
 
   if (success) {
     console.log(
-      "🎉 AppImage created successfully: MacKeysControl-x86_64.AppImage",
+      `🎉 AppImage created successfully: ${appImageName}`,
     );
   } else {
     console.error(`❌ Failed to create AppImage. Exit code: ${code}`);

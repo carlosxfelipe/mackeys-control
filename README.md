@@ -31,7 +31,8 @@ This single command will:
 
 1. Compile the Deno application natively.
 2. Bundle the required icons.
-3. Generate a `MacKeysControl-x86_64.AppImage` file in your root directory.
+3. Generate a `MacKeysControl-v1.0.0-x86_64.AppImage` (with the current version)
+   in your root directory.
 
 You can then run the AppImage directly, or execute the raw binary inside the
 `MacKeysControl/` folder for testing.
