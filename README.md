@@ -1,5 +1,7 @@
 # MacKeys Control - Deno Desktop
 
+![MacKeys Control Preview](./preview/preview.png)
+
 MacKeys Control is a utility designed to seamlessly replicate the macOS keyboard
 experience on Linux. It was created out of the need to use a Logitech K380s
 keyboard on both operating systems while maintaining the exact same muscle
@@ -63,16 +65,7 @@ add the following to your `.vscode/settings.json`:
 }
 ```
 
-## Known Issues
+## License
 
-- **Linux AppImage Icon Bug**: Building a Linux AppImage natively using the
-  experimental command below fails to display the custom icon in many file
-  managers:
-
-  ```sh
-  deno desktop -A --include src --output MacKeysControl.AppImage main.ts
-  ```
-
-  The internal packager neglects to create the hidden `.DirIcon` symlink. To
-  work around this, the `build:linux` task currently uses a custom script that
-  leverages `appimagetool` to generate the `.DirIcon` symlink correctly.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
+for details.
