@@ -1,0 +1,13 @@
+# Deno
+.deno/
+
+# Compiled binaries
+MacKeysControl
+MacKeysControl.exe
+*.app
+*.dmg
+*.AppImage
+appimagetool
+
+# OS
+.DS_Store

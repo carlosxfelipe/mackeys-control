@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MacKeys Control</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>MacKeys Control</h1>
+        <p>Configure seu teclado estilo Apple no Linux</p>
+      </header>
+
+      <div class="actions">
+        <button onclick="handleAction('enableMacMode')" class="btn primary">
+          <span class="icon">⌨️</span>
+          Ativar Modo macOS (Ctrl ↔ Command)
+        </button>
+
+        <button onclick="handleAction('disableMacMode')" class="btn">
+          <span class="icon">↩️</span>
+          Restaurar Padrão (Ctrl e Alt originais)
+        </button>
+
+        <button onclick="handleAction('applyAbnt2')" class="btn">
+          <span class="icon">🇧🇷</span>
+          Definir Layout ABNT2
+        </button>
+
+        <button onclick="handleAction('setupCedilha')" class="btn">
+          <span class="icon">✨</span>
+          Corrigir Cedilha (´ + c = ç)
+        </button>
+
+        <button onclick="handleAction('setupCmdQ')" class="btn">
+          <span class="icon">❌</span>
+          Ativar Cmd+Q para fechar janelas
+        </button>
+
+        <button onclick="handleAction('removeCmdQ')" class="btn">
+          <span class="icon">🗑️</span>
+          Remover Cmd+Q
+        </button>
+      </div>
+
+      <div class="status-card">
+        <div class="status-title">Status:</div>
+        <div id="status-message"
+          class="status-message">Selecione uma ação para começar</div>
+      </div>
+
+      <footer>
+        github.com/carlosxfelipe/mackeys-control
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
