@@ -39,6 +39,20 @@ Este único comando irá:
 Você pode então executar o AppImage diretamente ou executar o binário puro dentro da
 pasta `MacKeysControl/` para testes.
 
+### Dependências para executar o AppImage
+
+Dependendo da sua distribuição Linux, o sistema pode não ter a biblioteca `webkit2gtk` pré-instalada, o que causará um erro de bibliotecas compartilhadas ausentes ao tentar abrir o `.AppImage`. Essa biblioteca é o motor web necessário para renderizar a interface gráfica e não é embutida para manter o pacote leve e evitar conflitos de vídeo.
+
+Para resolver no **Red Hat, Fedora e derivados**:
+```sh
+sudo dnf install webkit2gtk4.1
+```
+
+Para resolver no **Ubuntu, Debian e derivados**:
+```sh
+sudo apt install libwebkit2gtk-4.1-0
+```
+
 ## Formatação de Código
 
 Este projeto usa o formatador integrado do Deno. Para garantir um estilo de código consistente
